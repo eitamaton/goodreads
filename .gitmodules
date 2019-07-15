@@ -1,0 +1,3 @@
+[submodule "data/raw/goodbooks-10k"]
+	path = data/raw/goodbooks-10k
+	url = https://github.com/eitamaton/goodbooks-10k
