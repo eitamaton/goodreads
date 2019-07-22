@@ -1,0 +1,43 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{RYL{\etalchar{+}}18}
+
+\bibitem[DHS05]{dingEquivalenceNonnegativeMatrix2005}
+Chris Ding, Xiaofeng He, and Horst~D. Simon.
+\newblock On the {{Equivalence}} of {{Nonnegative Matrix Factorization}} and
+  {{Spectral Clustering}}.
+\newblock In {\em Proceedings of the 2005 {{SIAM International Conference}} on
+  {{Data Mining}}}, pages 606--610. {Society for Industrial and Applied
+  Mathematics}, April 2005.
+\newblock URL: \url{https://epubs.siam.org/doi/10.1137/1.9781611972757.70},
+  \href {http://dx.doi.org/10.1137/1.9781611972757.70}
+  {\path{doi:10.1137/1.9781611972757.70}}.
+
+\bibitem[LS01]{leeAlgorithmsNonnegativeMatrix2001}
+Daniel~D. Lee and H.~Sebastian Seung.
+\newblock Algorithms for {{Non}}-negative {{Matrix Factorization}}.
+\newblock In T.~K. Leen, T.~G. Dietterich, and V.~Tresp, editors, {\em Advances
+  in {{Neural Information Processing Systems}} 13}, pages 556--562. {MIT
+  Press}, 2001.
+\newblock URL:
+  \url{http://papers.nips.cc/paper/1861-algorithms-for-non-negative-matrix-factorization.pdf}.
+
+\bibitem[RYL{\etalchar{+}}18]{ramlatchanSurveyMatrixCompletion2018}
+A.~Ramlatchan, M.~Yang, Q.~Liu, M.~Li, J.~Wang, and Y.~Li.
+\newblock A survey of matrix completion methods for recommendation systems.
+\newblock {\em Big Data Mining and Analytics}, 1(4):308--323, December 2018.
+\newblock URL: \url{https://ieeexplore.ieee.org/document/8400447}, \href
+  {http://dx.doi.org/10.26599/BDMA.2018.9020008}
+  {\path{doi:10.26599/BDMA.2018.9020008}}.
+
+\bibitem[TLLL18]{tranRegularizingMatrixFactorization2018}
+Thanh Tran, Kyumin Lee, Yiming Liao, and Dongwon Lee.
+\newblock Regularizing {{Matrix Factorization}} with {{User}} and {{Item
+  Embeddings}} for {{Recommendation}}.
+\newblock {\em Proceedings of the 27th ACM International Conference on
+  Information and Knowledge Management - CIKM '18}, pages 687--696, 2018.
+\newblock URL: \url{http://arxiv.org/abs/1809.00979}, \href
+  {http://arxiv.org/abs/1809.00979} {\path{arXiv:1809.00979}}, \href
+  {http://dx.doi.org/10.1145/3269206.3271730}
+  {\path{doi:10.1145/3269206.3271730}}.
+
+\end{thebibliography}

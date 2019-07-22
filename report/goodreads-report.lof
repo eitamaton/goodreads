@@ -1,0 +1,23 @@
+\contentsline {figure}{\numberline {1}{\ignorespaces Average Rating by Ratings Count}}{4}{figure.caption.4}
+\contentsline {figure}{\numberline {2}{\ignorespaces Average Rating by Reviews Count}}{4}{figure.caption.5}
+\contentsline {figure}{\numberline {3}{\ignorespaces Average Rating by Publication Year}}{5}{figure.caption.6}
+\contentsline {figure}{\numberline {4}{\ignorespaces Distribution of User Ratings}}{7}{figure.caption.13}
+\contentsline {figure}{\numberline {5}{\ignorespaces Distribution of Ratings by Book}}{8}{figure.caption.14}
+\contentsline {figure}{\numberline {6}{\ignorespaces Distribution of Ratings by User}}{8}{figure.caption.15}
+\contentsline {figure}{\numberline {7}{\ignorespaces Ratings Submatrix}}{9}{figure.caption.16}
+\contentsline {figure}{\numberline {8}{\ignorespaces Ratings Submatrix (Center)}}{10}{figure.caption.17}
+\contentsline {figure}{\numberline {9}{\ignorespaces Baseline matrix}}{11}{figure.caption.18}
+\contentsline {figure}{\numberline {10}{\ignorespaces NMF-W-1}}{12}{figure.caption.19}
+\contentsline {figure}{\numberline {11}{\ignorespaces NMF-H-1}}{12}{figure.caption.20}
+\contentsline {figure}{\numberline {12}{\ignorespaces NMF-1}}{13}{figure.caption.21}
+\contentsline {figure}{\numberline {13}{\ignorespaces NMF-10-Left}}{13}{figure.caption.22}
+\contentsline {figure}{\numberline {14}{\ignorespaces NMF-H-10}}{14}{figure.caption.23}
+\contentsline {figure}{\numberline {15}{\ignorespaces NMF-10-Left-Close}}{14}{figure.caption.24}
+\contentsline {figure}{\numberline {16}{\ignorespaces NMF-10-Left-Center-Close}}{14}{figure.caption.25}
+\contentsline {figure}{\numberline {17}{\ignorespaces NMF-50-Left-Close}}{15}{figure.caption.26}
+\contentsline {figure}{\numberline {18}{\ignorespaces NMF-50-Left-Center-Close}}{15}{figure.caption.27}
+\contentsline {figure}{\numberline {19}{\ignorespaces NMF-H-50}}{15}{figure.caption.28}
+\contentsline {figure}{\numberline {20}{\ignorespaces NMF-250-Left-Close}}{16}{figure.caption.29}
+\contentsline {figure}{\numberline {21}{\ignorespaces NMF-250-Left-center-Close}}{16}{figure.caption.30}
+\contentsline {figure}{\numberline {22}{\ignorespaces RMSE Comparison}}{17}{figure.caption.31}
+\contentsline {figure}{\numberline {23}{\ignorespaces $L1$- and $L2$-regularization}}{18}{figure.caption.32}
