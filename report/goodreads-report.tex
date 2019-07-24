@@ -1141,11 +1141,12 @@ The first is to sort the values within each row $h^\ell$, for $1 \leq \ell \leq 
 The top values of $h^7$ are shown in Table \ref{tab:stephen-king-10}.
 
 The second is to collect top user-generated tags for each latent factor:
-The file \texttt{book\_tags.csv} contains a count of user-generated tags $t$ for each book for the 100 most used tags per book.
+The file \texttt{book\_tags.csv} contains a count of user-generated tags $n_{b,t}$ for each book $b$ for the 100 most used tags $t$ per book.
 For each latent factor $\ell$, $1 \leq \ell \leq k$, use as weights the $\ell^{\text{th}}$ row of $H$, $h^\ell$,
 which scores how much each book is correlated with latent factor $\ell$.
-Then compute the weighted sum of tag counts $t_b$ over all tags associated to all books $b$.
-The resulting \emph{tag rank} for tag $t$ in latent factor $\ell$ is defined as $\sum_b h^\ell_b t_b$.
+Then compute the weighted sum of tag counts $n_{b,t}$ over all tags $t$ associated to all books $b$.
+The resulting \emph{tag rank} $r^\ell_t$ for tag $t$ in latent factor $\ell$ is defined as
+\[r_t^\ell = \sum_{b} h^\ell_b n_{b,t}.\]
 In Table \ref{tab:top-tags}, we show the tag ranking for each latent factor for $k=10$.
 
 For making recommendations, we should use our most complex model ($k=250$). To make recommendations for a given user $u$, multiply row $u$ of $W$, $w_u$, by $H$ to obtain the completion vector $a_u = w_u \cdot H$, then select the top (unrated) values.
