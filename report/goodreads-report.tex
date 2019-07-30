@@ -370,7 +370,7 @@
    
    \usepackage{subcaption}
     
-        \title{Goodreads Recommendations}
+        \title{Goodreads Topics and Recommendations}
         \author{Eitan Angel}
 
 
@@ -396,9 +396,23 @@
 %______________________________________________________________________
 
     \hypertarget{problem}{%
-\subsection{Problem: Make Book Recommendations for Goodreads Users}\label{problem}}
+\subsection{Problem: Goodreads Topics, Profiles, and Recommendations}\label{problem}}
 
-\href{https://www.goodreads.com}{Goodreads} is a social site for readers and for book recommendations. In this project we make recommendations to existing users of books they would most enjoy which they have not yet rated. To do so, we use a collaborative filtering filtering approach and compare the error in our recommendations to the error of some baseline models. Once we have made this model it is not so difficult to provide recommendations to new users who are willing to rate a few books. 
+\href{https://www.goodreads.com}{Goodreads} is a social site for readers. On it, readers can rate, tag, and discuss books. The user-based collaborative filtering technique used in this report yields a few applications.
+
+\begin{description}
+\item[Topics:] Based on the ratings of books by users, we can decide on a number of book topics to have a model ``learn'' from the ratings data. If the number of topics is not too great, then the topics are interpretable. To assist in describing and naming topics, we create a ranking of user-generated tags for books within each topic. While the topics themselves are a simple way to create a ``Because you liked Harry Potter\ldots'' feature once a reader submits a (positive) rating for a book,  perhaps the more important application of topic extraction is to user profiling.
+\item[Profiles:] The topics extracted above provide a profile for each reader which describes the preference of the reader towards each of the (interpreted) topics. We can use such profiles for targeted marketing.
+\item[Recommendations:] For existing users who have made some book ratings, we make individually-targeted book recommendations. The same collaborative filtering model infers, based on users with similar ratings, those books readers would most enjoy which they have not yet rated. Although we use models with a lesser number of topics so as to be interpretable in the previous applications, that aim is not so relevant for this application.
+\end{description}
+
+
+%______________________________________________________________________
+%
+%    \hypertarget{problem}{%
+%\subsection{Problem: Make Book Recommendations for Goodreads Users}\label{problem}}
+%
+%\href{https://www.goodreads.com}{Goodreads} is a social site for readers and for book recommendations. In this project we make recommendations to existing users of books they would most enjoy which they have not yet rated. To do so, we use a collaborative filtering filtering approach and compare the error in our recommendations to the error of some baseline models. Once we have made this model it is not so difficult to provide recommendations to new users who are willing to rate a few books. 
 
 %______________________________________________________________________
 
@@ -877,7 +891,7 @@ There are a few advantages and interpretations of matrix factorization.
 \item Since $H$ and $W$ are (for $k < n_u, n_b$) low-rank matrices relative to the size of $V$, matrix factorization
 can be considered a dimensionality reduction technique.
 \item Matrix factorization has various equivalencies with $K$-means clustering, as described in \cite{dingEquivalenceNonnegativeMatrix2005}.
-\item We interpret the latent factors as clusterings, which is the justification for topic modeling in section \ref{topic-extraction}.
+\item We interpret the latent factors as clusterings, which is the justification for topic modeling in section \ref{applications}.
 \item The latent factors, $H$ and $W$, can be used as training vectors for other models besides matrix completions.
 \end{itemize}
 
@@ -951,7 +965,7 @@ the aggregated book ratings.
 %\end{wrapfigure}
 
 We have trained models for $k \in \{1, 10, 25, 50, 100, 250\}$. Lesser values of \(k\) give more
-interpretable models, as we describe in section \ref{topic-extraction}, whereas greater values of \(k\) give more accurate
+interpretable models, as we describe in section \ref{applications}, whereas greater values of \(k\) give more accurate
 models, as in Figure \ref{fig:nmf-250-left-close}.
 Upon viewing the matrices, we can also see that the matrix reconstruction becomes
 finer and makes more `confident' recommendations for less popular books.
@@ -1114,119 +1128,260 @@ so that a model with sparse reconstructions may be advantageous at a deployment 
 
 \newpage
 
-    \hypertarget{topic-extraction}{%
-\section{Topic Extraction \& Recommendations}\label{topic-extraction}}
-
 
 %______________________________________________________________________
-\begin{wraptable}{r}{0.40\textwidth}
-\vspace{-10pt}
+\begin{wrapfigure}{r}{0.40\textwidth}
+\vspace{-30pt}
 \centering
-  \input{../table/goodreads-topics-recommendations/user-profile-9.tex}
-  \caption[User Profile]{The vector $w_9$ describes \texttt{user\_id} 9's preferences for each of the $k=10$ book topics.}
-  \label{tab:user-profile-9}
-  \vspace{-0pt}
-\end{wraptable}
+  \includegraphics[width=\linewidth]{../image/goodreads-topics-profiles-recommendations/tag-cloud-10-7.png}
+  \caption[Tag Cloud for Topic 7 ($k=10$)]{The tag cloud of top tag frequencies for topic 7 ($k=10$).}
+  \label{fig:tag-cloud-10-7}
+  \vspace{-30pt}
+\end{wrapfigure}
 %______________________________________________________________________
 
 
 
-Once we have constructed the model we can use the latent factors to cluster books, make user profiles based on that clustering,
+    \hypertarget{applications}{%
+\section{Applications}\label{applications}}
+
+
+
+
+Once we have constructed a model, we can use the latent factors to cluster books, make user profiles based on that clustering,
 and recommend books based on user components in each cluster.
-The book preferenced matrix $H$ contains a column vector $h_b$ of length $k$ for each book $b \in B$.
-The components of $h_b$ indicate the correlation between book $b$ and the $\ell^{\text{th}}$ latent factor.
+Once we have interpreted the book clusters, we refer to them as \emph{book topics}.
 
-We use two approaches to interpret each latent factor in order to name book topics.
-The first is to sort the values within each row $h^\ell$, for $1 \leq \ell \leq k$, of $H$ in descending order and list the associated top books indexing those values.
-The top values of $h^7$ are shown in Table \ref{tab:stephen-king-10}.
 
-The second is to collect top user-generated tags for each latent factor:
-The file \texttt{book\_tags.csv} contains a count of user-generated tags $n_{b,t}$ for each book $b$ for the 100 most used tags $t$ per book.
-For each latent factor $\ell$, $1 \leq \ell \leq k$, use as weights the $\ell^{\text{th}}$ row of $H$, $h^\ell$,
-which scores how much each book is correlated with latent factor $\ell$.
-Then compute the weighted sum of tag counts $n_{b,t}$ over all tags $t$ associated to all books $b$.
-The resulting \emph{tag rank} $r^\ell_t$ for tag $t$ in latent factor $\ell$ is defined as
-\[r_t^\ell = \sum_{b} h^\ell_b n_{b,t}.\]
-In Table \ref{tab:top-tags}, we show the tag ranking for each latent factor for $k=10$.
 
-For making recommendations, we should use our most complex model ($k=250$). To make recommendations for a given user $u$, multiply row $u$ of $W$, $w_u$, by $H$ to obtain the completion vector $a_u = w_u \cdot H$, then select the top (unrated) values.
-This is advantageous in that we do not need to reconstruct the entire completion matrix $A = WH$ in order to create recommendations for a single user.
 
-In addition, we can use the book topics we named in the previous section ($k=10$) to make a user profile, showing the user's preferences for each category.
-This is merely the vector $w_u$, the $u^{\text{th}}$ row of $W$.
 
-\begin{table}[h]
+
+    \hypertarget{topics}{%
+\subsection{Topics}\label{topics}}
+
+
+\begin{table}[b]
 \centering
 \caption[\texttt{book\_tags.csv} and \texttt{tags.csv}]{\texttt{book\_tags.csv} and \texttt{tags.csv}}
 \label{tab:tags-csv}
 \begin{subtable}[l]{0.45\linewidth}
  \centering
- \input{../table/goodreads-topics-recommendations/book-tags.tex}
+ \input{../table/goodreads-topics-profiles-recommendations/book-tags.tex}
      \subcaption{\texttt{book\_tags.csv}}
     \label{tab:book-tags}
 \end{subtable}%
 \begin{subtable}[r]{0.45\linewidth}
  \centering
- \input{../table/goodreads-topics-recommendations/tags.tex} 
+ \input{../table/goodreads-topics-profiles-recommendations/tags.tex} 
      \subcaption{\texttt{tags.csv}}
     \label{tab:tags}
 \end{subtable}
 \end{table}
 
 
-\begin{table}[h]
+The book preferenced matrix $H$ contains a column vector $h_b$ of length $k$ for each book $b \in B$.
+The components of $h_b$ indicate the correlation between book $b$ and the $\ell^{\text{th}}$ latent factor.
+
+
+We use two approaches to interpret each latent factor in order to describe book topics.
+The first is to sort the values within each row $h^\ell$, for $1 \leq \ell \leq k$, of $H$ in descending order and list the associated top books indexing those values.
+The top values of $h^7$ are shown in Table \ref{tab:stephen-king-10}.
+
+
+
+
+\begin{table}[t]
 \centering
-  \input{../table/goodreads-topics-recommendations/top-books-in-topic-7.tex}
+  \input{../table/goodreads-topics-profiles-recommendations/top-books-in-topic-7.tex}
   \caption[Stephen King ($k=10$)]{The top-scoring books in topic 7 ($k=10$) are all Stephen King novels.}
   \label{tab:stephen-king-10}
 \end{table}
 
 
 
+
+The second is to collect top user-generated tags for each latent factor:
+Table \ref{tab:book-tags} shows \texttt{book\_tags.csv}, which contains a count of user-generated tags $n_{b,t}$ for each book $b$ for the 100 most used tags $t$ per book.
+
+
+
+
+
+
+For each latent factor $\ell$, $1 \leq \ell \leq k$, use as weights the $\ell^{\text{th}}$ row of $H$, $h^\ell$,
+which scores how much each book is correlated with latent factor $\ell$.
+Then compute the weighted sum of tag counts $n_{b,t}$ over all tags $t$ associated to all books $b$.
+
+The resulting \emph{tag frequency} $r^\ell_t$ for tag $t$ in latent factor $\ell$ is defined as
+\[
+\displaystyle r_t^\ell = \sum_{b} h^\ell_b n_{b,t}.
+\]
+%In Table \ref{tab:top-tags}, we show the tag ranking for each latent factor for $k=10$.
+
+Figure \ref{fig:tag-cloud-10-7} shows an example wordcloud for top tag frequencies
+while Table \ref{tab:stephen-king-10} shows the top books within a topic.
+Figure \ref{fig:tag-cloud-10} shows such tag clouds for all topics in $k=10$;
+Figure \ref{fig:tag-cloud-25} shows tag clouds for all topics in $k=25$.
+
+\begin{figure}[b]
+\centering
+\begin{subfigure}[l]{0.45\linewidth}
+\centering
+ \includegraphics[width=\textwidth]{../image/goodreads-topics-profiles-recommendations/tag-cloud-25-wide-4.png}
+ \caption[Stephen King -- Horror ($k=25$)]{The tag cloud for topic 4 ($k=25$).}
+\end{subfigure}
+%
+\begin{subfigure}[r]{0.45\linewidth}
+\centering
+ \includegraphics[width=\textwidth]{../image/goodreads-topics-profiles-recommendations/tag-cloud-25-wide-7.png}
+ \caption[Stephen King -- Fantasy ($k=25$)]{The tag cloud for topic 7 ($k=25$).}
+\end{subfigure}
+\caption[Stephen King Topics ($k=25$)]{For $k=25$ there are two Stephen King topics but there is a clear distinction between the type of books in each topic.}
+\end{figure}
+
+
+
+
+%______________________________________________________________________
+%______________________________________________________________________
+
+
 \begin{table}[p]
 \centering
-  \caption[Top Tags ($k=10$)]{The top tags in each topic computed via sum of tags for each book in topic, weighted by component of book in topic.}
-  \label{tab:top-tags}
-\begin{subtable}[t]{\linewidth}
-\centering
- \input{../table/goodreads-topics-recommendations/top-tag-names-left.tex}
-\end{subtable}
-
-  \par\medskip
-
-\begin{subtable}[b]{\linewidth}
-\centering
- \input{../table/goodreads-topics-recommendations/top-tag-names-right.tex} 
-\end{subtable}
+  \input{../table/goodreads-topics-profiles-recommendations/stephen-king-topics.tex}
+  \caption[Stephen King ($k=25$)]{The top books in the $k=25$ Stephen King topics (author columns excluded).}
 \end{table}
 
-
-
 \begin{table}[p]
 \centering
-  \input{../table/goodreads-topics-recommendations/sci-fi-topic.tex}
+  \input{../table/goodreads-topics-profiles-recommendations/sci-fi-topic.tex}
   \caption[Sci-Fi ($k=25$)]{Further clustering leads to further refinements in topics. For example, in $k=25$ there is a single sci-fi topic while $k=10$ had a Sci-Fi and Fantasy topic; there are many fantasy topics centered around more specific fantasy series for $k=25$.}
   \label{tab:sci-fi-25}
 \end{table}
 
-\begin{table}[p]
- \centering
-\begin{subtable}[t]{\linewidth}
-\centering
-  \input{../table/goodreads-topics-recommendations/stephen-king-topics.tex}
-  \subcaption[Stephen King ($k=25$)]{For $k=25$ there are two Stephen King topics (thus author columns excluded); but there is a clear distinction between the type of books in each topic.}
-\end{subtable}
 
-  \par\bigskip
-  \par\bigskip
-  
-\begin{subtable}[b]{\linewidth}
-\centering
-  \input{../table/goodreads-topics-recommendations/stephen-king-tags.tex}
-  \caption[Stephen King Tags ($k=25$)]{While Stephen King titles may be familiar, the tag rankings for each topic assist in distinguishing topics especially if we are unfamiliar with the authors and titles.}
-\end{subtable}
-\end{table}
 
+
+
+
+
+%______________________________________________________________________
+%______________________________________________________________________
+
+
+\begin{figure}[p]
+    \centering
+    \includegraphics[height=0.9\textheight]{../image/goodreads-topics-profiles-recommendations/tag-cloud-10.png}
+%    \vspace{-30pt}
+    \caption[Tag Clouds ($k=10$)]{Tag clouds for all topics ($k=10$) assist in interpretation.}
+     \label{fig:tag-cloud-10}
+\end{figure}
+
+
+\begin{figure}[p]
+    \centering
+    \includegraphics[height=0.9\textheight]{../image/goodreads-topics-profiles-recommendations/tag-cloud-25-tall.png}
+%    \vspace{-30pt}
+    \caption[Tag Clouds ($k=25$)]{Tag clouds for all topics ($k=25$).}
+     \label{fig:tag-cloud-25}
+\end{figure}
+
+
+
+
+
+
+
+%\begin{table}[p]
+%\centering
+%  \caption[Top Tags ($k=10$)]{The top tags in each topic computed via sum of tags for each book in topic, weighted by component of book in topic.}
+%  \label{tab:top-tags}
+%\begin{subtable}[t]{\linewidth}
+%\centering
+% \input{../table/goodreads-topics-profiles-recommendations/top-tag-names-left.tex}
+%\end{subtable}
+%
+%  \par\medskip
+%
+%\begin{subtable}[b]{\linewidth}
+%\centering
+% \input{../table/goodreads-topics-profiles-recommendations/top-tag-names-right.tex} 
+%\end{subtable}
+%\end{table}
+
+
+%______________________________________________________________________
+%______________________________________________________________________
+
+
+
+\newpage
+
+
+
+
+    \hypertarget{profiles}{%
+\subsection{Profiles}\label{profiles}}
+
+
+
+
+
+The book topics we named in the previous section ($k=10$) make for an interpretable user profile for a given user $u \in U$.
+Mathematically, the user profile is merely the vector $w_u$, the $u^{\text{th}}$ row of $W$.
+The $\ell^{\text{th}}$ component of this vector is the correlation between the user and topic $\ell$.
+%______________________________________________________________________
+\begin{wraptable}{r}{0.40\textwidth}
+\vspace{-0pt}
+\centering
+  \input{../table/goodreads-topics-profiles-recommendations/user-profile-9.tex}
+  \caption[User Profile]{The vector $w_9$ describes \texttt{user\_id} 9's preferences for each of the $k=10$ book topics.}
+  \label{tab:user-profile-9}
+  \vspace{-30pt}
+\end{wraptable}
+%______________________________________________________________________
+Table \ref{tab:user-profile-9} is an example of such a user profile (\texttt{user\_id 9}).
+We look at preferences and recommendations for the same user in section \ref{recommendations}.
+
+
+
+    \hypertarget{recommendations}{%
+\subsection{Recommendations}\label{recommendations}}
+
+
+For making recommendations to readers based on their ratings history (and that of similar readers), we trade interpretability for accuracy. 
+Our most complex model ($k=250$) has the lowest reconstruction error; we use this model for individually-targeted recommendations. 
+
+To make recommendations for a given user $u$, multiply row $u$ of $W$, $w_u$, by $H$ to obtain the completion vector $a_u = w_u \cdot H$. 
+The greatest (unrated) components of $a_u$ we interpret as those books the user would most like to read, based on ratings of similar users.
+
+Another advantage of this model is that we do not need to reconstruct the entire completion matrix $A = WH$ in order to create recommendations for a single user.
+
+Table \ref{tab:user-recommendations-rated-9} shows the top scores in the matrix reconstruction for \texttt{user\_id 9}, which are strongly correlated with ratings (by construction).
+Table \ref{tab:user-recommendations-9} shows the top recommendations (scores for unrated books) for \texttt{user\_id 9}.
+
+
+
+%
+%\begin{table}[p]
+% \centering
+%\begin{subtable}[t]{\linewidth}
+%\centering
+%  \input{../table/goodreads-topics-profiles-recommendations/stephen-king-topics.tex}
+%  \subcaption[Stephen King ($k=25$)]{For $k=25$ there are two Stephen King topics (thus author columns excluded); but there is a clear distinction between the type of books in each topic.}
+%\end{subtable}
+%
+%  \par\bigskip
+%  \par\bigskip
+%  
+%\begin{subtable}[b]{\linewidth}
+%\centering
+%  \input{../table/goodreads-topics-profiles-recommendations/stephen-king-tags.tex}
+%  \caption[Stephen King Tags ($k=25$)]{While Stephen King titles may be familiar, the tag rankings for each topic assist in distinguishing topics especially if we are unfamiliar with the authors and titles.}
+%\end{subtable}
+%\end{table}
+%
 
 
 %    \hypertarget{user-recommendations}{%
@@ -1238,7 +1393,7 @@ This is merely the vector $w_u$, the $u^{\text{th}}$ row of $W$.
 
 \begin{table}[p]
 \centering
-  \input{../table/goodreads-topics-recommendations/user-recommendations-rated-9.tex}
+  \input{../table/goodreads-topics-profiles-recommendations/user-recommendations-rated-9.tex}
   \caption[User Top Ratings]{The dot product of vector $w_9$ with $H$ describes \texttt{user\_id} 9's preferences for books via each of the $k=10$ book topics.}
   \label{tab:user-recommendations-rated-9}
 \end{table}
@@ -1246,7 +1401,7 @@ This is merely the vector $w_u$, the $u^{\text{th}}$ row of $W$.
 
 \begin{table}[p]
 \centering
-  \input{../table/goodreads-topics-recommendations/user-recommendations-9.tex}
+  \input{../table/goodreads-topics-profiles-recommendations/user-recommendations-9.tex}
   \caption[User Recommendations]{The list of unrated books sorted by model scores serve as recomendations.}
   \label{tab:user-recommendations-9}
 \end{table}

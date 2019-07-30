@@ -24,7 +24,7 @@
 \usecolortheme{dolphin}
 
 
-\title{Goodreads Recommendations}
+\title{Goodreads Topics and Recommendations}
 \author{Eitan Angel}    
 \date{\today}
 
@@ -42,9 +42,9 @@
 	\newcolumntype{H}{>{\setbox0=\hbox\bgroup}c<{\egroup}@{}}
 	\newcolumntype{Z}{>{\setbox0=\hbox\bgroup}c<{\egroup}@{\hspace*{-\tabcolsep}}}
 
-%\frame{
-%
-%\titlepage}
+\frame{
+
+\titlepage}
 
 
 
@@ -53,20 +53,19 @@
 \usebackgroundtemplate{%
 }
 \section{Introduction}
-\subsection{Problem: Make Book Recommendations for Goodreads Users}\label{problem}
+\subsection{Problem: Goodreads Topics, Profiles, and Recommendations}\label{problem}
 
 \begin{frame}
-
+\href{https://www.goodreads.com}{Goodreads} is a social site for readers. Readers rate, tag, and discuss books.\vfill
+\begin{description}[<+->]
+\item[Topics:] `Learn'' book topics from reader ratings data. \vfill
 \begin{itemize}[<+->]
-\item \href{https://www.goodreads.com}{Goodreads} is a social site 
-for readers and for book recommendations.
-\vfill
-\item Collaborative filtering via matrix factorization to make recommendations 
-to existing users of books they would most enjoy which they have not yet rated.
-\vfill
-\item Extract topics to make user profiles based on user-generated tags.
+\item Topics are interpretable; user-generated tags assist\vfill
+\item Simple way to create ``Because you liked Harry Potter\ldots'' product feature.\vfill
 \end{itemize}
-
+\item[Profiles:] Topics extracted provide a profile for each reader to aid targeted marketing.\vfill
+\item[Recommendations:] Individually-targeted book recommendations for existing users. \vfill
+\end{description}
 \end{frame}
 
 
@@ -135,6 +134,8 @@ $A =WH$ ``fills-in'' blank ratings in $V$
 \section%[RawData]
 {Exploration}\label{exploration}
 
+\subsection{Most Rated Books}\label{most-rated-books}
+
 \begin{frame}
 
 
@@ -162,7 +163,7 @@ $A =WH$ ``fills-in'' blank ratings in $V$
 
 \end{frame}
 
-
+\subsection{Most Highly-Rated Books}\label{most-highly-rated-books}
 
 \begin{frame}
  
@@ -185,7 +186,7 @@ $A =WH$ ``fills-in'' blank ratings in $V$
 \bottomrule
 \end{tabular}
     \caption[Most Highly-Rated Books]{Calvin \& Hobbes and Harry Potter dominate the average ratings.}
-     \label{tbl:most-rated-books}
+     \label{tbl:most-highly-rated-books}
 \end{table}
 
 
@@ -194,10 +195,10 @@ $A =WH$ ``fills-in'' blank ratings in $V$
 
 
 
-\section{Models}
+\section{Models}\label{models}
 
 
-\subsection{Ratings}
+\subsection{Ratings}\label{ratings}
 
 
 \begin{frame}
@@ -222,6 +223,8 @@ $A =WH$ ``fills-in'' blank ratings in $V$
      \end{figure}
 
 \end{frame}
+
+\subsection{Ratings Matrix}\label{ratings-matrix}
 
 \begin{frame}
 
@@ -248,7 +251,7 @@ $A =WH$ ``fills-in'' blank ratings in $V$
 
 
 
-\subsection{Baseline}
+\subsection{Baseline}\label{baseline}
 
 
 \begin{frame}
@@ -261,7 +264,7 @@ $A =WH$ ``fills-in'' blank ratings in $V$
 \end{figure}
 \end{frame}
 
-\subsection{}
+\subsection{$k=1$}\label{k-1}
 
 \begin{frame}
  \begin{figure}[t]
@@ -273,7 +276,7 @@ $A =WH$ ``fills-in'' blank ratings in $V$
 \end{figure}
 \end{frame}
 
-
+\subsection{$k=10$}\label{k-10}
 
 \begin{frame}
  \begin{figure}[t]
@@ -285,6 +288,7 @@ $A =WH$ ``fills-in'' blank ratings in $V$
 \end{figure}
 \end{frame}
 
+\subsection{$k=25$}\label{k-25}
 
 \begin{frame}
  \begin{figure}[t]
@@ -297,6 +301,7 @@ $A =WH$ ``fills-in'' blank ratings in $V$
 \end{frame}
 
 
+\subsection{$k=10$ Close}\label{k-10-close}
 
 
 
@@ -310,6 +315,7 @@ $A =WH$ ``fills-in'' blank ratings in $V$
 \end{figure}
 \end{frame}
 
+\subsection{$k=50$ Close}\label{k-50-close}
 
 \begin{frame}
  \begin{figure}[t]
@@ -321,6 +327,7 @@ $A =WH$ ``fills-in'' blank ratings in $V$
 \end{figure}
 \end{frame}
 
+\subsection{$k=250$ Close}\label{k-250-close}
 
 \begin{frame}
  \begin{figure}[t]
@@ -331,6 +338,8 @@ $A =WH$ ``fills-in'' blank ratings in $V$
      \label{fig:nmf-250-left-close}
 \end{figure}
 \end{frame}
+
+\subsection{$k=10$ Left Center Close}\label{k-10-left-center-close}
 
 
 \begin{frame}
@@ -343,6 +352,7 @@ $A =WH$ ``fills-in'' blank ratings in $V$
 \end{figure}
 \end{frame}
 
+\subsection{$k=50$ Left Center Close}\label{k-50-left-center-close}
 
 \begin{frame}
  \begin{figure}[t]
@@ -354,6 +364,7 @@ $A =WH$ ``fills-in'' blank ratings in $V$
 \end{figure}
 \end{frame}
 
+\subsection{$k=250$ Left Center Close}\label{k-250-left-center-close}
 
 \begin{frame}
  \begin{figure}[t]
@@ -365,6 +376,7 @@ $A =WH$ ``fills-in'' blank ratings in $V$
 \end{figure}
 \end{frame}
 
+\subsection{Scores}\label{scores}
 
 \begin{frame}
  
@@ -377,9 +389,9 @@ $A =WH$ ``fills-in'' blank ratings in $V$
 \end{figure}
 \end{frame}
 
-\section{Topic Extraction \& Recommendations}
+\section{Applications}
 
-\subsection{Topic Extraction}
+\subsection{Topics ($k=10$)}
 
 \begin{frame}
  \begin{figure}[t]
@@ -390,17 +402,28 @@ $A =WH$ ``fills-in'' blank ratings in $V$
      \label{fig:nmf-H-10}
 \end{figure}
 
-\vfill
-
+\begin{columns}
+\column{0.65\textwidth}
 \begin{itemize}[<+->]
 \item Rows $h^\ell$ of $H$ indicate book correlation with latent topic $\ell$.\vfill
-\item Use components of $h^\ell$ as weighting for tags:\vfill
+\item Components of $h^\ell$ are weights for tags:\vfill
 \begin{itemize}[<+->]
 \item We have the count $n_{b,t}$ of the top 100 tags for each book\vfill
-\item The \emph{tag rank} $r^\ell_t$ for tag $t$ in latent factor $\ell$ is\vfill
-\[r_t^\ell = \sum_{b} h^\ell_b n_{b,t}.\]
+\item The \emph{tag frequency} $r^\ell_t$ for tag $t$ in latent factor $\ell$ is $\displaystyle r_t^\ell = \sum_{b} h^\ell_b n_{b,t}.$
 \end{itemize}
 \end{itemize}
+\column{0.35\textwidth}
+%______________________________________________________________________
+\begin{figure}
+\vspace{-20pt}
+\centering
+  \includegraphics[width=\linewidth]{../image/goodreads-topics-profiles-recommendations/tag-cloud-10-7.png}
+  \caption[Tag Cloud for Topic 7 ($k=10$)]{Tag cloud for topic 7 ($k=10$).}
+  \label{fig:tag-cloud-10-7}
+%  \vspace{-30pt}
+\end{figure}
+%______________________________________________________________________
+\end{columns}
 
 \vfill
 \end{frame}
@@ -438,124 +461,208 @@ $A =WH$ ``fills-in'' blank ratings in $V$
 \end{frame}
 
 
-
-
 \begin{frame}
- \begin{table}
 \centering
-%  \caption[Top Tags ($k=10$)]{The top tags in each topic computed via sum of tags for each book in topic, weighted by component of book in topic.}
-%  \label{tab:top-tags}
-\centering
-\begin{tabular}{lllHZ}
-\toprule
-    Modern Classics &        Harry Potter &             Fiction & Fantasy \& Sci-Fi &         Thrillers \\
-\midrule
-           classics &             fantasy &  historical-fiction &          fantasy &           mystery \\
-            classic &         young-adult &         young-adult &  science-fiction &          thriller \\
-    science-fiction &        harry-potter &           book-club &           sci-fi &           fantasy \\
-             sci-fi &                  ya &            classics &         classics &       young-adult \\
-         literature &              series &             mystery &      young-adult &             crime \\
-            fantasy &               magic &             fantasy &           series &          suspense \\
-             school &           childrens &        contemporary &   sci-fi-fantasy &            series \\
-             novels &             re-read &                  ya &        adventure &   science-fiction \\
-          dystopian &           adventure &             romance &     epic-fantasy &      john-grisham \\
- historical-fiction &            children &         non-fiction &               ya &           default \\
-           dystopia &          children-s &            dystopia &           kindle &  mystery-thriller \\
-        young-adult &  all-time-favorites &              kindle &        audiobook &            sci-fi \\
-\bottomrule
-\end{tabular}\end{table}
+  \includegraphics[width=0.45\textwidth]{../image/goodreads-topics-profiles-recommendations/tag-cloud-10-0.png} \hfill
+    \includegraphics[width=0.45\textwidth]{../image/goodreads-topics-profiles-recommendations/tag-cloud-10-1.png}
+    \vfill
+    
+      \includegraphics[width=0.45\textwidth]{../image/goodreads-topics-profiles-recommendations/tag-cloud-10-2.png} \hfill
+        \includegraphics[width=0.45\textwidth]{../image/goodreads-topics-profiles-recommendations/tag-cloud-10-3.png}
 \end{frame}
 
 \begin{frame}
- \begin{table}
 \centering
-%  \caption[Top Tags ($k=10$)]{The top tags in each topic computed via sum of tags for each book in topic, weighted by component of book in topic.}
-%  \label{tab:top-tags}
-\centering
-\begin{tabular}{HHHll}
-\toprule
-    Modern Classics &        Harry Potter &             Fiction & Fantasy \& Sci-Fi &         Thrillers \\
-\midrule
-           classics &             fantasy &  historical-fiction &          fantasy &           mystery \\
-            classic &         young-adult &         young-adult &  science-fiction &          thriller \\
-    science-fiction &        harry-potter &           book-club &           sci-fi &           fantasy \\
-             sci-fi &                  ya &            classics &         classics &       young-adult \\
-         literature &              series &             mystery &      young-adult &             crime \\
-            fantasy &               magic &             fantasy &           series &          suspense \\
-             school &           childrens &        contemporary &   sci-fi-fantasy &            series \\
-             novels &             re-read &                  ya &        adventure &   science-fiction \\
-          dystopian &           adventure &             romance &     epic-fantasy &      john-grisham \\
- historical-fiction &            children &         non-fiction &               ya &           default \\
-           dystopia &          children-s &            dystopia &           kindle &  mystery-thriller \\
-        young-adult &  all-time-favorites &              kindle &        audiobook &            sci-fi \\
-\bottomrule
-\end{tabular}\end{table}
+  \includegraphics[width=0.45\textwidth]{../image/goodreads-topics-profiles-recommendations/tag-cloud-10-4.png} \hfill
+    \includegraphics[width=0.45\textwidth]{../image/goodreads-topics-profiles-recommendations/tag-cloud-10-5.png}
+    \vfill
+    
+      \includegraphics[width=0.45\textwidth]{../image/goodreads-topics-profiles-recommendations/tag-cloud-10-6.png} \hfill
+        \includegraphics[width=0.45\textwidth]{../image/goodreads-topics-profiles-recommendations/tag-cloud-10-7.png}
 \end{frame}
+
+\begin{frame}
+\centering
+    \vfill
+      \includegraphics[width=0.45\textwidth]{../image/goodreads-topics-profiles-recommendations/tag-cloud-10-8.png} \hfill
+    \includegraphics[width=0.45\textwidth]{../image/goodreads-topics-profiles-recommendations/tag-cloud-10-9.png}
+    \vfill
+
+\end{frame}
+
+
+
+\subsection{Topics ($k=25$)}
+
+\begin{frame}
+ The topics are finer for greater latent factors $k$. When $k=25$ there are two distinct Stephen King topics: 
+ 
+ \begin{figure}
+%\vspace{-20pt}
+\centering
+  \includegraphics[width=0.45\linewidth]{../image/goodreads-topics-profiles-recommendations/tag-cloud-25-tall-4.png}
+    \includegraphics[width=0.45\linewidth]{../image/goodreads-topics-profiles-recommendations/tag-cloud-25-tall-7.png}
+%  \caption[Tag Cloud for Topic  ($k=10$)]{Tag cloud for topic 7 ($k=10$).}
+%  \label{fig:tag-cloud-10-7}
+%  \vspace{-30pt}
+\end{figure}
+ 
+\end{frame}
+
 
 \begin{frame}
  
-
-\begin{table}
+\begin{table}[p]
 \centering
-\begin{tabular}{lllHZ}
+\begin{tabular}{ll}
 \toprule
-     Young Adult &        Children's &     Stephen King & Twilight \& Fifty Shades &    Austen \& Bront\"es \\
+                            4 &                                                  7 \\
+                        title &                                              title \\
 \midrule
-     young-adult &         childrens &           horror &             young-adult &            classics \\
-         fantasy &          classics &     stephen-king &                 fantasy &             fantasy \\
-              ya &          children &          fantasy &                 romance &             classic \\
-       dystopian &  children-s-books &         thriller &                vampires &         young-adult \\
-         romance &           fantasy &             king &                      ya &             romance \\
-          series &        children-s &  science-fiction &              paranormal &  historical-fiction \\
-        dystopia &       young-adult &          default &                  series &          literature \\
- science-fiction &     picture-books &         classics &               dystopian &              school \\
-          sci-fi &         childhood &           sci-fi &                dystopia &          historical \\
-      paranormal &              kids &          mystery &                 vampire &              novels \\
-       adventure &            poetry &     supernatural &      paranormal-romance &            cl\`assics \\
-            teen &   childrens-books &         suspense &           urban-fantasy &                  ya \\
+ The Shining\ldots% (The Shining \#1) 
+ &      The Drawing of the Three (The Dark\ldots% Tower, \#2)
+  \\
+                           It &               The Waste Lands (The Dark Tower, \#3) \\
+                       Misery &              Wizard and Glass (The Dark Tower, \#4) \\
+                    The Stand &           Wolves of the Calla (The Dark Tower, \#5) \\
+                       Carrie &                The Dark Tower (The Dark Tower, \#7) \\
+                 Pet Sematary &                The Gunslinger (The Dark Tower, \#1) \\
+                 'Salem's Lot &              Song of Susannah (The Dark Tower, \#6) \\
+               Needful Things &  The Wind Through the Keyhole (The\ldots% Dark Tower, ... 
+               \\
+                         Cujo &                             The Eyes of the Dragon \\
+                  Firestarter &                    The Talisman (The Talisman, \#1) \\
+                The Dead Zone &                                 Hearts in Atlantis \\
+                    Christine &                                  Different Seasons \\
 \bottomrule
 \end{tabular}
+  \caption[Stephen King ($k=25$)]{The top books in the $k=25$ Stephen King topics.}
 \end{table}
+
 \end{frame}
+
+
+
+
+
+%
+%
+%\begin{frame}
+% \begin{table}
+%\centering
+%%  \caption[Top Tags ($k=10$)]{The top tags in each topic computed via sum of tags for each book in topic, weighted by component of book in topic.}
+%%  \label{tab:top-tags}
+%\centering
+%\begin{tabular}{lllHZ}
+%\toprule
+%    Modern Classics &        Harry Potter &             Fiction & Fantasy \& Sci-Fi &         Thrillers \\
+%\midrule
+%           classics &             fantasy &  historical-fiction &          fantasy &           mystery \\
+%            classic &         young-adult &         young-adult &  science-fiction &          thriller \\
+%    science-fiction &        harry-potter &           book-club &           sci-fi &           fantasy \\
+%             sci-fi &                  ya &            classics &         classics &       young-adult \\
+%         literature &              series &             mystery &      young-adult &             crime \\
+%            fantasy &               magic &             fantasy &           series &          suspense \\
+%             school &           childrens &        contemporary &   sci-fi-fantasy &            series \\
+%             novels &             re-read &                  ya &        adventure &   science-fiction \\
+%          dystopian &           adventure &             romance &     epic-fantasy &      john-grisham \\
+% historical-fiction &            children &         non-fiction &               ya &           default \\
+%           dystopia &          children-s &            dystopia &           kindle &  mystery-thriller \\
+%        young-adult &  all-time-favorites &              kindle &        audiobook &            sci-fi \\
+%\bottomrule
+%\end{tabular}\end{table}
+%\end{frame}
+%
+%\begin{frame}
+% \begin{table}
+%\centering
+%%  \caption[Top Tags ($k=10$)]{The top tags in each topic computed via sum of tags for each book in topic, weighted by component of book in topic.}
+%%  \label{tab:top-tags}
+%\centering
+%\begin{tabular}{HHHll}
+%\toprule
+%    Modern Classics &        Harry Potter &             Fiction & Fantasy \& Sci-Fi &         Thrillers \\
+%\midrule
+%           classics &             fantasy &  historical-fiction &          fantasy &           mystery \\
+%            classic &         young-adult &         young-adult &  science-fiction &          thriller \\
+%    science-fiction &        harry-potter &           book-club &           sci-fi &           fantasy \\
+%             sci-fi &                  ya &            classics &         classics &       young-adult \\
+%         literature &              series &             mystery &      young-adult &             crime \\
+%            fantasy &               magic &             fantasy &           series &          suspense \\
+%             school &           childrens &        contemporary &   sci-fi-fantasy &            series \\
+%             novels &             re-read &                  ya &        adventure &   science-fiction \\
+%          dystopian &           adventure &             romance &     epic-fantasy &      john-grisham \\
+% historical-fiction &            children &         non-fiction &               ya &           default \\
+%           dystopia &          children-s &            dystopia &           kindle &  mystery-thriller \\
+%        young-adult &  all-time-favorites &              kindle &        audiobook &            sci-fi \\
+%\bottomrule
+%\end{tabular}\end{table}
+%\end{frame}
+%
+%\begin{frame}
+% 
+%
+%\begin{table}
+%\centering
+%\begin{tabular}{lllHZ}
+%\toprule
+%     Young Adult &        Children's &     Stephen King & Twilight \& Fifty Shades &    Austen \& Bront\"es \\
+%\midrule
+%     young-adult &         childrens &           horror &             young-adult &            classics \\
+%         fantasy &          classics &     stephen-king &                 fantasy &             fantasy \\
+%              ya &          children &          fantasy &                 romance &             classic \\
+%       dystopian &  children-s-books &         thriller &                vampires &         young-adult \\
+%         romance &           fantasy &             king &                      ya &             romance \\
+%          series &        children-s &  science-fiction &              paranormal &  historical-fiction \\
+%        dystopia &       young-adult &          default &                  series &          literature \\
+% science-fiction &     picture-books &         classics &               dystopian &              school \\
+%          sci-fi &         childhood &           sci-fi &                dystopia &          historical \\
+%      paranormal &              kids &          mystery &                 vampire &              novels \\
+%       adventure &            poetry &     supernatural &      paranormal-romance &            cl\`assics \\
+%            teen &   childrens-books &         suspense &           urban-fantasy &                  ya \\
+%\bottomrule
+%\end{tabular}
+%\end{table}
+%\end{frame}
+%
+%\begin{frame}
+%\begin{table}
+%\centering
+%\begin{tabular}{HHHll}
+%\toprule
+%     Young Adult &        Children's &     Stephen King & Twilight \& Fifty Shades &    Austen \& Bront\"es \\
+%\midrule
+%     young-adult &         childrens &           horror &             young-adult &            classics \\
+%         fantasy &          classics &     stephen-king &                 fantasy &             fantasy \\
+%              ya &          children &          fantasy &                 romance &             classic \\
+%       dystopian &  children-s-books &         thriller &                vampires &         young-adult \\
+%         romance &           fantasy &             king &                      ya &             romance \\
+%          series &        children-s &  science-fiction &              paranormal &  historical-fiction \\
+%        dystopia &       young-adult &          default &                  series &          literature \\
+% science-fiction &     picture-books &         classics &               dystopian &              school \\
+%          sci-fi &         childhood &           sci-fi &                dystopia &          historical \\
+%      paranormal &              kids &          mystery &                 vampire &              novels \\
+%       adventure &            poetry &     supernatural &      paranormal-romance &            cl\`assics \\
+%            teen &   childrens-books &         suspense &           urban-fantasy &                  ya \\
+%\bottomrule
+%\end{tabular}
+%\end{table}
+%\end{frame}
+%
+
+
+\subsection{Profile}
 
 \begin{frame}
-\begin{table}
-\centering
-\begin{tabular}{HHHll}
-\toprule
-     Young Adult &        Children's &     Stephen King & Twilight \& Fifty Shades &    Austen \& Bront\"es \\
-\midrule
-     young-adult &         childrens &           horror &             young-adult &            classics \\
-         fantasy &          classics &     stephen-king &                 fantasy &             fantasy \\
-              ya &          children &          fantasy &                 romance &             classic \\
-       dystopian &  children-s-books &         thriller &                vampires &         young-adult \\
-         romance &           fantasy &             king &                      ya &             romance \\
-          series &        children-s &  science-fiction &              paranormal &  historical-fiction \\
-        dystopia &       young-adult &          default &                  series &          literature \\
- science-fiction &     picture-books &         classics &               dystopian &              school \\
-          sci-fi &         childhood &           sci-fi &                dystopia &          historical \\
-      paranormal &              kids &          mystery &                 vampire &              novels \\
-       adventure &            poetry &     supernatural &      paranormal-romance &            cl\`assics \\
-            teen &   childrens-books &         suspense &           urban-fantasy &                  ya \\
-\bottomrule
-\end{tabular}
-\end{table}
-\end{frame}
-
-
-
-\subsection{User Preferences}
-
 \begin{columns}
- \column{0.5\linewidth}
+ \column{0.4\linewidth}
  \begin{itemize}[<+->]
-\item Use complex model ($k=250$).\vfill
-\item Rows $w_u$ of $W$ are user preferences for topics:\vfill
-\item To recommend for user $u$,
-obtain the $u^{\text{th}}$ row of the ``matrix completion'' A via
-\[a_u = w_u \cdot H\]
-\item Choose the top (unrated) values of $a_u$
+\item Rows $w_u$ of $W$ are reader preferences for latent factors\vspace{0.5cm}
+\item Interpret latent factors as book topics\vspace{0.5cm}
+\item Profile is reader `preference' for each topic\vspace{0.5cm}
+\item Targeted marketing applications\vspace{0.5cm}
 \end{itemize}
+
  \column{0.5\linewidth}
  \begin{table}
 %\vspace{-10pt}
@@ -566,9 +673,28 @@ obtain the $u^{\text{th}}$ row of the ``matrix completion'' A via
 %  \vspace{-0pt}
 \end{table}
 \end{columns}
+\end{frame}
 
 
 
+
+\subsection{Recommendations}
+
+
+\begin{frame}
+  \begin{itemize}[<+->]
+ \item Use a complex model ($k=250$).\vfill
+\item To recommend for user $u$,
+obtain the $u^{\text{th}}$ row of the ``matrix completion'' A via
+\[a_u = w_u \cdot H\] \vfill
+\item Choose the top (unrated) values of $a_u$ \vfill
+\end{itemize}
+
+ 
+ 
+\end{frame}
+
+\subsection{Top Scores}
 
 \begin{frame}
  \begin{table}
@@ -605,7 +731,7 @@ obtain the $u^{\text{th}}$ row of the ``matrix completion'' A via
 \end{table}
 \end{frame}
 
-
+\subsection{Top Recommendations}
 
 \begin{frame}
  \begin{table}
